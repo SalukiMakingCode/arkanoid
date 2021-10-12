@@ -16,6 +16,7 @@ let canonLose7Img = document.getElementById("canonLose7Img");
 let canonLose8Img = document.getElementById("canonLose8Img");
 let canonImg=canon1Img;
 let widthCanon=110;
+let canonBonus="";
 let borderImg = document.getElementById("border");
 let door1Img = document.getElementById("door1");
 let door2Img = document.getElementById("door2");
@@ -90,15 +91,7 @@ let blockToBreak=0;
 let live=3;
 let liveImg = document.getElementById("live");
 let ballImg = document.getElementById("ballImg");
-let ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":4, "countMove":0, "active":0}];
-//let explode1Img = document.getElementById("explode1");
-//let explode2Img = document.getElementById("explode2");
-//let explode3Img = document.getElementById("explode3");
-//let explode4Img = document.getElementById("explode4");
-//let explode5Img = document.getElementById("explode5");
-//let explode6Img = document.getElementById("explode6");
-//let explode7Img = document.getElementById("explode7");
-//let explode8Img = document.getElementById("explode8");
+let ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":5, "countMove":0, "active":0, "angle":45, "clue":40}];
 let gameoverImg = document.getElementById("gameover");
 let loadGameOver=0;
 let statutGame="startscreen";
@@ -106,6 +99,75 @@ let statutCount=0;
 let start1Img = document.getElementById("start1Img");
 let start2Img = document.getElementById("start2Img");
 let startscreen="start1Img";
+let level=1;
+let bonusClue1Img = document.getElementById("bonusclue1");
+let bonusClue2Img = document.getElementById("bonusclue2");
+let bonusClue3Img = document.getElementById("bonusclue3");
+let bonusClue4Img = document.getElementById("bonusclue4");
+let bonusClue5Img = document.getElementById("bonusclue5");
+let bonusClue6Img = document.getElementById("bonusclue6");
+let bonusClue7Img = document.getElementById("bonusclue7");
+let bonusClue8Img = document.getElementById("bonusclue8");
+let bonusMult1Img = document.getElementById("bonusmult1");
+let bonusMult2Img = document.getElementById("bonusmult2");
+let bonusMult3Img = document.getElementById("bonusmult3");
+let bonusMult4Img = document.getElementById("bonusmult4");
+let bonusMult5Img = document.getElementById("bonusmult5");
+let bonusMult6Img = document.getElementById("bonusmult6");
+let bonusMult7Img = document.getElementById("bonusmult7");
+let bonusMult8Img = document.getElementById("bonusmult8");
+let bonusLive1Img = document.getElementById("bonuslive1");
+let bonusLive2Img = document.getElementById("bonuslive2");
+let bonusLive3Img = document.getElementById("bonuslive3");
+let bonusLive4Img = document.getElementById("bonuslive4");
+let bonusLive5Img = document.getElementById("bonuslive5");
+let bonusLive6Img = document.getElementById("bonuslive6");
+let bonusLive7Img = document.getElementById("bonuslive7");
+let bonusLive8Img = document.getElementById("bonuslive8");
+let bonusspdo1Img = document.getElementById("bonusspdo1");
+let bonusspdo2Img = document.getElementById("bonusspdo2");
+let bonusspdo3Img = document.getElementById("bonusspdo3");
+let bonusspdo4Img = document.getElementById("bonusspdo4");
+let bonusspdo5Img = document.getElementById("bonusspdo5");
+let bonusspdo6Img = document.getElementById("bonusspdo6");
+let bonusspdo7Img = document.getElementById("bonusspdo7");
+let bonusspdo8Img = document.getElementById("bonusspdo8");
+let bonusspup1Img = document.getElementById("bonusspup1");
+let bonusspup2Img = document.getElementById("bonusspup2");
+let bonusspup3Img = document.getElementById("bonusspup3");
+let bonusspup4Img = document.getElementById("bonusspup4");
+let bonusspup5Img = document.getElementById("bonusspup5");
+let bonusspup6Img = document.getElementById("bonusspup6");
+let bonusspup7Img = document.getElementById("bonusspup7");
+let bonusspup8Img = document.getElementById("bonusspup8");
+let saturne1Img = document.getElementById("saturne1");
+let saturne2Img = document.getElementById("saturne2");
+let saturne3Img = document.getElementById("saturne3");
+let saturne4Img = document.getElementById("saturne4");
+let saturne5Img = document.getElementById("saturne5");
+let saturne6Img = document.getElementById("saturne6");
+let saturne7Img = document.getElementById("saturne7");
+let saturne8Img = document.getElementById("saturne8");
+let saturne9Img = document.getElementById("saturne9");
+let saturne10Img = document.getElementById("saturne10");
+let saturne11Img = document.getElementById("saturne11");
+let saturne12Img = document.getElementById("saturne12");
+let saturne13Img = document.getElementById("saturne13");
+let saturne14Img = document.getElementById("saturne14");
+let saturne15Img = document.getElementById("saturne15");
+let saturne16Img = document.getElementById("saturne16");
+let saturne17Img = document.getElementById("saturne17");
+let saturne18Img = document.getElementById("saturne18");
+let saturne19Img = document.getElementById("saturne19");
+let saturne20Img = document.getElementById("saturne20");
+let saturne21Img = document.getElementById("saturne21");
+let saturne22Img = document.getElementById("saturne22");
+let saturne23Img = document.getElementById("saturne23");
+let saturne24Img = document.getElementById("saturne24");
+let saturne25Img = document.getElementById("saturne25");
+let bonus=[];
+let ballDuplicate=[];
+let enemy=[];
 //let score=0;
 //let nameImg = document.getElementById("name");
 //let name="";
@@ -113,6 +175,22 @@ let startscreen="start1Img";
 
 // test is ball collide block
 function collide (ballPosX, ballPosY, ballWidth, ballLength, blockPosX, blockPosY, blockWidth, blockLength) {
+    if (blockPosX > ballPosX + ballWidth ||
+        blockPosX < ballPosX - blockWidth ||
+        blockPosY > ballPosY + ballLength ||
+        blockPosY < ballPosY - blockLength) {
+        return false
+    }
+    else {
+        return true
+    }
+}
+
+function collideEnemy (ballPosX, ballPosY, ballWidth, ballLength, blockPosX, blockPosY) {
+    blockPosX=blockPosX+1;
+    blockPosY=blockPosY+1;
+    let blockWidth=34;
+    let blockLength=34;
     if (blockPosX > ballPosX + ballWidth ||
         blockPosX < ballPosX - blockWidth ||
         blockPosY > ballPosY + ballLength ||
@@ -147,17 +225,23 @@ function refreshScreen() {
 //        for (let i = 0; i < boulet.length; i++) {
 //            if (boulet[i]["active"] === 0) ctx.drawImage(bouletImg, boulet[i]["posX"], boulet[i]["posY"]);
 //        }
-        if (live > 11)  ctx.drawImage(liveImg, 400, 525)
-        if (live > 10)  ctx.drawImage(liveImg, 420, 525)
-        if (live > 9)  ctx.drawImage(liveImg, 440, 525)
-        if (live > 8)  ctx.drawImage(liveImg, 460, 525)
-        if (live > 7)  ctx.drawImage(liveImg, 480, 525)
-        if (live > 6)  ctx.drawImage(liveImg, 500, 525)
-        if (live > 5)  ctx.drawImage(liveImg, 520, 525)
-        if (live > 4)  ctx.drawImage(liveImg, 540, 525)
-        if (live > 3)  ctx.drawImage(liveImg, 560, 525)
-        if (live > 2)  ctx.drawImage(liveImg, 580, 525)
-        if (live > 1)  ctx.drawImage(liveImg, 600, 525)
+        if (live > 11)  ctx.drawImage(liveImg, 400, 525);
+        if (live > 10)  ctx.drawImage(liveImg, 420, 525);
+        if (live > 9)  ctx.drawImage(liveImg, 440, 525);
+        if (live > 8)  ctx.drawImage(liveImg, 460, 525);
+        if (live > 7)  ctx.drawImage(liveImg, 480, 525);
+        if (live > 6)  ctx.drawImage(liveImg, 500, 525);
+        if (live > 5)  ctx.drawImage(liveImg, 520, 525);
+        if (live > 4)  ctx.drawImage(liveImg, 540, 525);
+        if (live > 3)  ctx.drawImage(liveImg, 560, 525);
+        if (live > 2)  ctx.drawImage(liveImg, 580, 525);
+        if (live > 1)  ctx.drawImage(liveImg, 600, 525);
+        for (let i = 0; i < enemy.length; i++) {
+            if (enemy[i]["active"]===0) ctx.drawImage(eval(enemy[i]["img"]), enemy[i]["posX"], enemy[i]["posY"]);
+        }
+        for (let i = 0; i < bonus.length; i++) {
+            if (bonus[i]["active"]===0) ctx.drawImage(eval(bonus[i]["img"]), bonus[i]["posX"], bonus[i]["posY"]);
+        }
 //        if (live < 1) loadGameOver++;
 //        ctx.font = '40px serif';
 //        ctx.fillStyle = "white";
@@ -183,6 +267,85 @@ function refreshScreen() {
         }
 //    }
     }
+
+// rand bonus
+function randBonus(blockPosX, blockPosY) {
+    let random=rand(100);
+    let idbonus=bonus.length;
+    if (random<=5) {
+        bonus.push({"id": idbonus, "posX": blockPosX, "posY": blockPosY, "img": "bonusClue1Img", "active": 0, "delay":0, "type":"clue"});
+    }
+    if (random>5 && random<=10) {
+        bonus.push({"id": idbonus, "posX": blockPosX, "posY": blockPosY, "img": "bonusMult1Img", "active": 0, "delay":0, "type":"multiball"});
+    }
+    if (random>10 && random<=11) {
+        bonus.push({"id": idbonus, "posX": blockPosX, "posY": blockPosY, "img": "bonusLive1Img", "active": 0, "delay":0, "type":"live"});
+    }
+    if (random>11 && random<=18) {
+        bonus.push({"id": idbonus, "posX": blockPosX, "posY": blockPosY, "img": "bonusspup1Img", "active": 0, "delay":0, "type":"speedUp"});
+    }
+    if (random>18 && random<=22) {
+        bonus.push({"id": idbonus, "posX": blockPosX, "posY": blockPosY, "img": "bonusspdo1Img", "active": 0, "delay":0, "type":"speedDown"});
+    }
+}
+
+// take a bonus
+function takeBonus(type) {
+    if (type==="clue") canonBonus="clue";
+    if (type==="live") live++;
+    if (type==="speedUp") {
+        for (let i=0; i<ball.length;i++) {
+            ball[i]["vitesse"]=ball[i]["vitesse"]-1;
+        }
+    }
+    if (type==="speedDown") {
+        for (let i=0; i<ball.length;i++) {
+            ball[i]["vitesse"]=ball[i]["vitesse"]+1;
+        }
+    }
+    if (type==="multiball") {
+        let ball1X=0;
+        let ball1Y=0;
+        let ball2X=0;
+        let ball2Y=0;
+        let ballDuplicate=[];
+        for (let i=0; i<ball.length;i++) {
+            if (ball[i]["directionPosX"] < 0 && ball[i]["directionPosY"] < 0) {
+                ball1X=Math.abs(ball[i]["directionPosX"]);
+                ball1Y=Math.abs(ball[i]["directionPosY"]);
+                ball2X=Math.abs(ball[i]["directionPosX"]);
+                ball2Y=-(Math.abs(ball[i]["directionPosY"]));
+            }
+            if (ball[i]["directionPosX"] > 0 && ball[i]["directionPosY"] > 0) {
+                ball1X=-(Math.abs(ball[i]["directionPosX"]));
+                ball1Y=-(Math.abs(ball[i]["directionPosY"]));
+                ball2X=Math.abs(ball[i]["directionPosX"]);
+                ball2Y=-(Math.abs(ball[i]["directionPosY"]));
+            }
+            if (ball[i]["directionPosX"] > 0 && ball[i]["directionPosY"] < 0) {
+                ball1X=-(Math.abs(ball[i]["directionPosX"]));
+                ball1Y=Math.abs(ball[i]["directionPosY"]);
+                ball2X=-(Math.abs(ball[i]["directionPosX"]));
+                ball2Y=-(Math.abs(ball[i]["directionPosY"]));
+            }
+            if (ball[i]["directionPosX"] < 0 && ball[i]["directionPosY"] >= 0) {
+                ball1X=Math.abs(ball[i]["directionPosX"]);
+                ball1Y=Math.abs(ball[i]["directionPosY"]);
+                ball2X=Math.abs(ball[i]["directionPosX"]);
+                ball2Y=-(Math.abs(ball[i]["directionPosY"]));
+            }
+            if (ball1X===0) ball1X=0.246513;
+            if (ball1Y===0) ball1Y=2.817663;
+            if (ball2X===0) ball2X=-0.246513;
+            if (ball2Y===0) ball2Y=-2.817663;
+            ballDuplicate.push({"posX":ball[i]["posX"], "posY":ball[i]["posY"], "img":"ballImg", "froze":false, "directionPosX":ball1X, "directionPosY":ball1Y, "vitesse":ball[i]["vitesse"], "countMove":0, "active":0, "angle":ball[i]["angle"]});
+            ballDuplicate.push({"posX":ball[i]["posX"], "posY":ball[i]["posY"], "img":"ballImg", "froze":false, "directionPosX":ball2X, "directionPosY":ball2Y, "vitesse":ball[i]["vitesse"], "countMove":0, "active":0, "angle":ball[i]["angle"]});
+        }
+        for (let i=0; i<ballDuplicate.length;i++) {
+            ball.push({"posX":ballDuplicate[i]["posX"], "posY":ballDuplicate[i]["posY"], "img":"ballImg", "froze":false, "directionPosX":ballDuplicate[i]["directionPosX"], "directionPosY":ballDuplicate[i]["directionPosY"], "vitesse":ballDuplicate[i]["vitesse"], "countMove":0, "active":0, "angle":ballDuplicate[i]["angle"], "clue":40});
+        }
+    }
+}
 
 // all interval always actif
 setInterval(function() {
@@ -271,13 +434,12 @@ setInterval(function() {
 }, 150)
 
 // let the ball move
-// let ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-1, "directionPosY":1, "vitesse":100, "countMove":0, "active":0}];
 setInterval(function() {
     let nbActive=0;
     for (let i=0; i<ball.length; i++) {
         if (ball[i]["froze"]===false) {
             ball[i]["countMove"]++;
-            if (ball[i]["vitesse"] === ball[i]["countMove"]) {
+            if (ball[i]["vitesse"] < ball[i]["countMove"]) {
                 ball[i]["countMove"] = 0;
                 ball[i]["posX"] = ball[i]["posX"]+ ball[i]["directionPosX"];
                 ball[i]["posY"] = ball[i]["posY"] + ball[i]["directionPosY"];
@@ -297,6 +459,25 @@ setInterval(function() {
             if ( (ball[i]["posY"]>=477) && ((ball[i]["posY"] - ball[i]["directionPosY"])<477) && (ball[i]["posX"]>=canonPosX) && (ball[i]["posX"]<=(canonPosX+widthCanon)) ) {
                 ball[i]["directionPosY"]=-(Math.abs(ball[i]["directionPosY"]));
                 ball[i]["posY"]=477;
+                if (canonBonus==="clue") {
+                    ball[i]["froze"]=true;
+                    ball[i]["clue"]=ball[i]["posX"]-canonPosX;
+                }
+                let touch=ball[i]["posX"]-canonPosX;
+                if (touch<5) { ball[i]["directionPosY"]=-0.246513  ; ball[i]["directionPosX"]=-2.817663; }
+                if (touch>=5 && touch<12) { ball[i]["directionPosY"]=-0.732050 ; ball[i]["directionPosX"]=-2.732050; }
+                if (touch>=12 && touch<20) { ball[i]["directionPosY"]=-1.414213 ; ball[i]["directionPosX"]=-2.449489;  }
+                if (touch>=20 && touch<28) { ball[i]["directionPosY"]=-2 ; ball[i]["directionPosX"]=-2;  }
+                if (touch>=28 && touch<36) { ball[i]["directionPosY"]=-2.449489 ; ball[i]["directionPosX"]=-1.414213;  }
+                if (touch>=36 && touch<45) { ball[i]["directionPosY"]=-2.785456 ; ball[i]["directionPosX"]=-0.491151;  }
+                if (touch>=45 && touch<55) { ball[i]["directionPosY"]=-2.828 ; ball[i]["directionPosX"]=0;  }
+                if (touch>=55 && touch<64) { ball[i]["directionPosY"]=-2.785456 ; ball[i]["directionPosX"]=0.491151;  }
+                if (touch>=64 && touch<72) { ball[i]["directionPosY"]=-2.449489 ; ball[i]["directionPosX"]=1.414213;  }
+                if (touch>=72 && touch<80) { ball[i]["directionPosY"]=-2 ; ball[i]["directionPosX"]=2;  }
+                if (touch>=80 && touch<88) { ball[i]["directionPosY"]=-1.414213 ; ball[i]["directionPosX"]=2.449489;  }
+                if (touch>=88 && touch<95) { ball[i]["directionPosY"]=-0.732050 ; ball[i]["directionPosX"]=2.732050;  }
+                if (touch>95) { ball[i]["directionPosY"]=-0.246513  ; ball[i]["directionPosX"]=2.817663;  }
+                ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
             }
             if (ball[i]["posY"]>550) ball[i]["active"]=1;
             let posY = ball[i]["posY"];
@@ -309,17 +490,33 @@ setInterval(function() {
                         if (collide(posX, posY, 14, 14, blockPosX, blockPosY, 44, 22) === true) {
                             if (block[j]["type"]==="blockgold") {
                                 if (block[j]["animateActive"]===false) animateBlockGold(j);
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
                             }
                             else if (block[j]["type"]==="blocksilver" && block[j]["live"]>1) {
                                 block[j]["live"] = block[j]["live"]-1;
                                 if (block[j]["animateActive"]===false) animateBlockSilver(j);
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
                             }
                             else {
                                 block[j]["live"] = block[j]["live"]-1;
                                 block[j]["active"] = 1;
                                 blockToBreak--;
+                                randBonus(blockPosX, blockPosY);
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
                             }
                             changeBallAfterBlockCollide(posX, posY, blockPosX, blockPosY, i, j);
+//                              score=score+boat[j]["vitesse"];
+                        }
+                    }
+                }
+                for (let j = 0; j < enemy.length; j++) {
+                    if (enemy[j]["active"] === 0) {
+                        let blockPosY = enemy[j]["posY"];
+                        let blockPosX = enemy[j]["posX"];
+                        if (collideEnemy(posX, posY, 14, 14, blockPosX, blockPosY) === true) {
+                            enemy[j]["active"] = 1;
+                            ball[i]["vitesse"]=ball[i]["vitesse"]-0.50;
+                            changeBallAfterBlockCollideEnemy(posX, posY, blockPosX, blockPosY, i, j);
 //                              score=score+boat[j]["vitesse"];
                         }
                     }
@@ -331,17 +528,58 @@ setInterval(function() {
     if (nbActive===0 && statutGame!=="startscreen" && statutGame!=="loseLive") {
         loseLive();
     }
+    for (let i = 0; i < bonus.length; i++) {
+        bonus[i]["delay"]=bonus[i]["delay"]+1;
+        if (bonus[i]["delay"]===2) {
+            bonus[i]["posY"] = bonus[i]["posY"] + 1;
+            bonus[i]["delay"]=0;
+        }
+        let img=bonus[i]["img"];
+        let imgNumb=img.substr(9,1);
+        imgNumb++;
+        if (imgNumb===9) imgNumb=1;
+        bonus[i]["img"]=img.substr(0,9) + imgNumb + "Img";
+        if ( (bonus[i]["posY"]>=477) && (bonus[i]["posY"]<490) && (bonus[i]["posX"]>=canonPosX-44) && (bonus[i]["posX"]<=(canonPosX+widthCanon)) && (bonus[i]["active"]===0) ) {
+            bonus[i]["active"]=1;
+            takeBonus(bonus[i]["type"]);
+        }
+    }
+
+    for (let i = 0; i < enemy.length; i++) {
+        enemy[i]["delay"]=enemy[i]["delay"]+1;
+        if (enemy[i]["delay"]===25) {
+            enemy[i]["delay"] = 0;
+            let newPosX = rand(10);
+            let newPosY = rand(10);
+            if (enemy[i]["posX"] < 16) enemy[i]["nextPosX"] = 2;
+            else if (enemy[i]["posX"] > 621) enemy[i]["nextPosX"] = -2;
+            else {
+                if (newPosX === 1) enemy[i]["nextPosX"] = -3;
+                if (newPosX === 2) enemy[i]["nextPosX"] = 3;
+            }
+            if (enemy[i]["posY"] < 17) enemy[i]["nextPosY"] = 2;
+            else if (enemy[i]["posY"] > 621) enemy[i]["nextPosY"] = -2;
+            else {
+                if (newPosY === 1) enemy[i]["nextPosY"] = -3;
+                if (newPosY === 2) enemy[i]["nextPosY"] = 3;
+            }
+            let img = enemy[i]["img"];
+            let imgNumb = img.substr(7, 1);
+            imgNumb++;
+            if (imgNumb === 26) imgNumb = 1;
+            enemy[i]["img"] = img.substr(0, 7) + imgNumb + "Img";
+        }
+        if (enemy[i]["delay"]%10===0) {
+            enemy[i]["posY"]=enemy[i]["posY"]+enemy[i]["nextPosY"];
+            enemy[i]["posX"]=enemy[i]["posX"]+enemy[i]["nextPosX"];
+        }
+    }
+
     refreshScreen();
 }, 1)
 
 // change the ball direction after collide a block
 function changeBallAfterBlockCollide(posX, posY, blockPosX, blockPosY, idball, idblock) {
-
-//if (blockPosX > ballPosX + ballWidth ||
-//         blockPosX < ballPosX - blockWidth ||
-//         blockPosY > ballPosY + ballLength ||
-//         blockPosY < ballPosY - blockLength)
-let directionPosX=ball[idball]["directionPosX"];
 let directionPosY=ball[idball]["directionPosY"];
 let yBeforeEnter=posY-directionPosY;
 let difYBeforeEnter=0;
@@ -359,12 +597,31 @@ if ((yBeforeEnter+difYBeforeEnter)*nbToGoOutFromBottomAndTop>22) {
         ball[idball]["directionPosX"] = Math.abs(ball[idball]["directionPosX"]);
     }
 }
-
 if ((posY - ball[idball]["directionPosY"]) <= blockPosY) {
     ball[idball]["directionPosY"] = -(Math.abs(ball[idball]["directionPosY"]));
 } else if ((posY - ball[idball]["directionPosY"]) >= blockPosY) {
     ball[idball]["directionPosY"] = Math.abs(ball[idball]["directionPosY"]);
 }
+}
+
+// change the ball direction after collide a block
+function changeBallAfterBlockCollideEnemy(posX, posY, blockPosX, blockPosY, idball, idblock) {
+    for (let i=0; i<ball.length;i++) {
+    let touch=rand(100);
+    if (touch<5) { ball[i]["directionPosY"]=-0.246513  ; ball[i]["directionPosX"]=-2.817663; }
+    if (touch>=5 && touch<12) { ball[i]["directionPosY"]=-0.732050 ; ball[i]["directionPosX"]=-2.732050; }
+    if (touch>=12 && touch<20) { ball[i]["directionPosY"]=-1.414213 ; ball[i]["directionPosX"]=-2.449489;  }
+    if (touch>=20 && touch<28) { ball[i]["directionPosY"]=-2 ; ball[i]["directionPosX"]=-2;  }
+    if (touch>=28 && touch<36) { ball[i]["directionPosY"]=-2.449489 ; ball[i]["directionPosX"]=-1.414213;  }
+    if (touch>=36 && touch<45) { ball[i]["directionPosY"]=-2.785456 ; ball[i]["directionPosX"]=-0.491151;  }
+    if (touch>=45 && touch<55) { ball[i]["directionPosY"]=-2.828 ; ball[i]["directionPosX"]=0.1;  }
+    if (touch>=55 && touch<64) { ball[i]["directionPosY"]=-2.785456 ; ball[i]["directionPosX"]=0.491151;  }
+    if (touch>=64 && touch<72) { ball[i]["directionPosY"]=-2.449489 ; ball[i]["directionPosX"]=1.414213;  }
+    if (touch>=72 && touch<80) { ball[i]["directionPosY"]=-2 ; ball[i]["directionPosX"]=2;  }
+    if (touch>=80 && touch<88) { ball[i]["directionPosY"]=-1.414213 ; ball[i]["directionPosX"]=2.449489;  }
+    if (touch>=88 && touch<95) { ball[i]["directionPosY"]=-0.732050 ; ball[i]["directionPosX"]=2.732050;  }
+    if (touch>95) { ball[i]["directionPosY"]=-0.246513  ; ball[i]["directionPosX"]=2.817663;  }
+    }
 }
 
 // Lose one live
@@ -407,13 +664,14 @@ function loseLive(statut) {
     if (statut===9) {
         canonPosY = canonPosY + 30;
         live--;
+        canonBonus="";
         if (live>0) {
             statutGame="ingame";
             canonPosX=298;
             canonPosY=490;
             canonImg=canon1Img;
             widthCanon=110;
-            ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":4, "countMove":0, "active":0}];
+            ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":4, "countMove":0, "active":0, "angle":45, "clue":40}];
         }
         else {
             statutGame="gameover";
@@ -504,7 +762,6 @@ function animateBlockGold(id) {
                 block[id]["img"]="blockSilver2Img";
                 block[id]["animateActive"]=true;
                 refreshScreen();
-                console.log(block);
                 setTimeout(function () {
                     animateBlockSilver(id);
                 }, 100);
@@ -638,6 +895,15 @@ function animateGate () {
             gateTopLeftImg = gateTop7Img;
             gateTopRightImg = gateTop7Img;
             gateStatut++;
+            let enemyLeft=rand(2);
+            let enemyRight=rand(2);
+            let enemyTopLeft=rand(2);
+            let enemyTopRight=rand(2);
+            let enemyId=enemy.length;
+            if (enemyLeft===1) { enemy.push({"id":enemyId, "posX":-2, "posY":162, "active":0, "img":"saturne1", "delay":0, "nextPosY":-2, "nextPosX":2}); enemyId++; }
+            if (enemyRight===1) { enemy.push({"id":enemyId, "posX":630, "posY":162, "active":0, "img":"saturne1", "delay":0, "nextPosY":-2, "nextPosX":-2}); enemyId++; }
+            if (enemyTopLeft===1) { enemy.push({"id":enemyId, "posX":177, "posY":-2, "active":0, "img":"saturne1", "delay":0, "nextPosY":-2, "nextPosX":2}); enemyId++; }
+            if (enemyTopRight===1) { enemy.push({"id":enemyId, "posX":432, "posY":-2, "active":0, "img":"saturne1", "delay":0, "nextPosY":-2, "nextPosX":-2}); enemyId++; }
             refreshScreen();
             setTimeout(function () {
                 animateGate();
@@ -724,12 +990,6 @@ setInterval(function() {
     refreshScreen();
 }, 300)
 
-// move the boulet
-//setInterval(function() {
-
-//    refreshScreen();
-//}
-//}, 100);
 
 //send the boulet
 //function fire() {
@@ -799,11 +1059,13 @@ function finishLeft () {
         canonPosX--;
         refreshScreen();
         if (canonPosX>-110) setTimeout(function(){ finishLeft(); }, 15);
+        else nextLevel();
 }
 function finishRight () {
     canonPosX++;
     refreshScreen();
     if (canonPosX<650) setTimeout(function(){ finishRight(); }, 15);
+    else nextLevel();
 }
 
 //listen for move and fire and catch name of the player
@@ -822,6 +1084,59 @@ window.addEventListener("keydown", function(event) {
     }
 });
 
+// listen to mouse move
+document.addEventListener("mousemove", mouseMoveHandler, false);
+    function mouseMoveHandler(e) {
+        if (statutGame!=="finishlevel" && statutGame!=="loseLive") {
+            let relativeX = e.clientX - c.offsetLeft;
+            if (relativeX > 0 && relativeX < c.width) {
+                canonPosX = relativeX - widthCanon / 2;
+                if(canonPosX<19) canonPosX=19;
+                if(canonPosX>528) canonPosX=528;
+                let diff=0;
+                for (let i = 0; i < ball.length; i++) {
+                    if (ball[i]["froze"]===true) ball[i]["posX"]=canonPosX+ball[i]["clue"];
+                }
+                if (canonPosX>=523 && canonPosX<529 && statutGame==="levelwin" && statutGame!=="finishlevel" && statutGame!=="loseLive") {
+                    finishRight();
+                    for (let i=0; i<ball.length; i++) {
+                        ball[i]["froze"]=true;
+                    }
+                    statutGame="finishlevel";
+                }
+                if (canonPosX<=28 && canonPosX>20 && statutGame==="levelwin" && statutGame!=="finishlevel" && statutGame!=="loseLive") {
+                    finishLeft();
+                    for (let i=0; i<ball.length; i++) {
+                        ball[i]["froze"]=true;
+                    }
+                    statutGame="finishlevel";
+                }
+            }
+        }
+    }
+
+
+//next level
+function nextLevel() {
+    level++;
+    let nextLevel="level"+level.toString();
+    block=eval(nextLevel);
+    for (let i = 0; i < block.length; i++) {
+        blockToBreak=blockToBreak+block[i]["live"];
+    }
+    statutGame="ingame";
+    ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":5, "countMove":0, "active":0, "angle":45, "clue":40}];
+    doorLeftImg=door1Img;
+    doorRightImg=door1Img;
+    canonPosX=298;
+    canonPosY=490;
+    canonImg=canon1Img;
+    canonBonus="";
+    bonus=[];
+    enemy=[];
+    widthCanon=110;
+}
+
 // listen to click to play or replay
 document.getElementById("play").addEventListener("click", (event)=>{
     event.preventDefault();
@@ -832,7 +1147,6 @@ document.getElementById("play").addEventListener("click", (event)=>{
     }
     statutGame="ingame";
     document.getElementById("play").style.display="none"
-    console.log(blockToBreak);
 })
 
 //document.getElementById("replay").addEventListener("click", (event)=>{
