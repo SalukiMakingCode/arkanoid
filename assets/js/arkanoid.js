@@ -168,7 +168,7 @@ let saturne25Img = document.getElementById("saturne25");
 let bonus=[];
 let ballDuplicate=[];
 let enemy=[];
-//let score=0;
+let score=0;
 //let nameImg = document.getElementById("name");
 //let name="";
 //let highscoreImg = document.getElementById("highscore");
@@ -222,9 +222,6 @@ function refreshScreen() {
         for (let i = 0; i < ball.length; i++) {
             if (ball[i]["active"]===0) ctx.drawImage(eval(ball[i]["img"]), ball[i]["posX"], ball[i]["posY"]);
         }
-//        for (let i = 0; i < boulet.length; i++) {
-//            if (boulet[i]["active"] === 0) ctx.drawImage(bouletImg, boulet[i]["posX"], boulet[i]["posY"]);
-//        }
         if (live > 11)  ctx.drawImage(liveImg, 400, 525);
         if (live > 10)  ctx.drawImage(liveImg, 420, 525);
         if (live > 9)  ctx.drawImage(liveImg, 440, 525);
@@ -243,9 +240,9 @@ function refreshScreen() {
             if (bonus[i]["active"]===0) ctx.drawImage(eval(bonus[i]["img"]), bonus[i]["posX"], bonus[i]["posY"]);
         }
 //        if (live < 1) loadGameOver++;
-//        ctx.font = '40px serif';
-//        ctx.fillStyle = "white";
-//        ctx.fillText(score, 10, 40);
+        ctx.font = '30px serif';
+        ctx.fillStyle = "white";
+        ctx.fillText(score, 20, 545);
         if (loadGameOver > 0) { //&& loadGameOver <80) {
             ctx.drawImage(gameoverImg, 0, 0);
             document.getElementById("replay").style.display = "inline";
@@ -490,22 +487,22 @@ setInterval(function() {
                         if (collide(posX, posY, 14, 14, blockPosX, blockPosY, 44, 22) === true) {
                             if (block[j]["type"]==="blockgold") {
                                 if (block[j]["animateActive"]===false) animateBlockGold(j);
-                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
                             }
                             else if (block[j]["type"]==="blocksilver" && block[j]["live"]>1) {
                                 block[j]["live"] = block[j]["live"]-1;
                                 if (block[j]["animateActive"]===false) animateBlockSilver(j);
-                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
                             }
                             else {
                                 block[j]["live"] = block[j]["live"]-1;
                                 block[j]["active"] = 1;
                                 blockToBreak--;
                                 randBonus(blockPosX, blockPosY);
-                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.01;
+                                ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
+                                score=score+10;
                             }
                             changeBallAfterBlockCollide(posX, posY, blockPosX, blockPosY, i, j);
-//                              score=score+boat[j]["vitesse"];
                         }
                     }
                 }
@@ -517,7 +514,7 @@ setInterval(function() {
                             enemy[j]["active"] = 1;
                             ball[i]["vitesse"]=ball[i]["vitesse"]-0.50;
                             changeBallAfterBlockCollideEnemy(posX, posY, blockPosX, blockPosY, i, j);
-//                              score=score+boat[j]["vitesse"];
+                            score=score+25;
                         }
                     }
                 }
@@ -1148,18 +1145,6 @@ document.getElementById("play").addEventListener("click", (event)=>{
     statutGame="ingame";
     document.getElementById("play").style.display="none"
 })
-
-//document.getElementById("replay").addEventListener("click", (event)=>{
-//    event.preventDefault();
-//    statutGame="ingame";
-//    document.getElementById("replay").style.display="none";
-//    boulet = [{ "id":0, "posX":-20, "posY":-20, "active":0 }] ;
-//    boat = [{ "id":0, "posX":20, "posY":0, "img":"boat1Img", "vitesse":1, "active":0 }] ;
-//    score=0;
-//    loadGameOver=0;
-//    live=5;
-//    draw();
-//})
 
 // load game
 setTimeout(function(){ refreshScreen(); }, 700);
