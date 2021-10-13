@@ -169,6 +169,7 @@ let bonus=[];
 let ballDuplicate=[];
 let enemy=[];
 let score=0;
+let gameWinImg = document.getElementById("gamewin");
 //let nameImg = document.getElementById("name");
 //let name="";
 //let highscoreImg = document.getElementById("highscore");
@@ -262,6 +263,14 @@ function refreshScreen() {
 //            statutCount=0;
 //            statutGame="highscore";
         }
+    if (statutGame==="gameWin") {
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(gameWinImg, 0, 0);
+        document.getElementById("replay").style.display = "inline";
+//        if (statutCount>100) {
+//            statutCount=0;
+//            statutGame="highscore";
+    }
 //    }
     }
 
@@ -1123,21 +1132,40 @@ document.addEventListener("mousemove", mouseMoveHandler, false);
 function nextLevel() {
     level++;
     let nextLevel="level"+level.toString();
-    block=eval(nextLevel);
-    for (let i = 0; i < block.length; i++) {
-        blockToBreak=blockToBreak+block[i]["live"];
+
+    if (nextLevel==="level5") {
+        alerte("You Win !!");
+        statutGame="gameWin";
     }
-    statutGame="ingame";
-    ball=[{"posX":320, "posY":476, "img":"ballImg", "froze":true, "directionPosX":-2, "directionPosY":-2, "vitesse":5, "countMove":0, "active":0, "angle":45, "clue":40}];
-    doorLeftImg=door1Img;
-    doorRightImg=door1Img;
-    canonPosX=298;
-    canonPosY=490;
-    canonImg=canon1Img;
-    canonBonus="";
-    bonus=[];
-    enemy=[];
-    widthCanon=110;
+    else {
+        block = eval(nextLevel);
+        for (let i = 0; i < block.length; i++) {
+            blockToBreak = blockToBreak + block[i]["live"];
+        }
+        statutGame = "ingame";
+        ball = [{
+            "posX": 320,
+            "posY": 476,
+            "img": "ballImg",
+            "froze": true,
+            "directionPosX": -2,
+            "directionPosY": -2,
+            "vitesse": 5,
+            "countMove": 0,
+            "active": 0,
+            "angle": 45,
+            "clue": 40
+        }];
+        doorLeftImg = door1Img;
+        doorRightImg = door1Img;
+        canonPosX = 298;
+        canonPosY = 490;
+        canonImg = canon1Img;
+        canonBonus = "";
+        bonus = [];
+        enemy = [];
+        widthCanon = 110;
+    }
 }
 
 // listen to click to play or replay
