@@ -489,10 +489,16 @@ setInterval(function() {
                                 if (block[j]["animateActive"]===false) animateBlockGold(j);
                                 ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
                             }
-                            else if (block[j]["type"]==="blocksilver" && block[j]["live"]>1) {
+                            else if (block[j]["type"]==="blocksilver") {
                                 block[j]["live"] = block[j]["live"]-1;
                                 if (block[j]["animateActive"]===false) animateBlockSilver(j);
                                 ball[i]["vitesse"]=ball[i]["vitesse"]-0.05;
+                                if (block[j]["live"]===0) {
+                                    block[j]["active"] = 1;
+                                    blockToBreak--;
+                                    randBonus(blockPosX, blockPosY);
+                                    score=score+15;
+                                }
                             }
                             else {
                                 block[j]["live"] = block[j]["live"]-1;
